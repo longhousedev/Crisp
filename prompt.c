@@ -34,6 +34,10 @@ long evaluate_operation(long num, char *operator, long num2) {
     if (strcmp(operator, "^") == 0) return pow(num, num2);
 }
 
+long negate(long num) {
+    return num * -1;
+}
+
 long evaluate(mpc_ast_t* tree) {
 
     //Base Case
@@ -49,10 +53,14 @@ long evaluate(mpc_ast_t* tree) {
 
     //Go through the children of the tree and perform operations on returned value
     int i = 3;
-    while (strstr(tree->children[i]->tag, "expression")) {
+    if (strstr(tree->children[i]->tag, "expression")) {
+        do {
         num = evaluate_operation(num, operator, evaluate(tree->children[i]));
         i++;
-    }    
+        }
+        while (strstr(tree->children[i]->tag, "expression"));
+    }
+    else if (strcmp(operator, "-") == 0) num = negate(num);
 
     return num;
 }
