@@ -1,3 +1,2 @@
 # Crisp
-A crispy programming language
-Based on http://www.buildyourownlisp.com/
+A crispy programming language based on http://www.buildyourownlisp.com/
